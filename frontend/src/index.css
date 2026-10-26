@@ -1,0 +1,255 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  flex: 0 0 auto;
+  border-bottom: 1px solid transparent;
+}
+
+.app-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 12px;
+  flex: 0 0 auto;
+  font-size: 12px;
+  border-top: 1px solid transparent;
+}
+
+.pane {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pane-center {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.pane-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+}
+
+.pane-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, "Courier New", monospace;
+}
+
+.cell-null {
+  opacity: 0.4;
+  font-style: italic;
+}
+
+.cell-blob {
+  opacity: 0.65;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+}
+
+.cell-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-selected {
+  outline: 2px solid #6a8dff;
+  outline-offset: -2px;
+  background: rgba(106, 141, 255, 0.12);
+}
+
+.tree-sql-btn {
+  opacity: 0;
+  transition: opacity 0.15s;
+  font-size: 11px;
+}
+
+.ant-tree-treenode:hover .tree-sql-btn {
+  opacity: 0.75;
+}
+
+.tree-sql-btn:hover {
+  opacity: 1 !important;
+  color: #6a8dff;
+}
+
+.hex-view {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.tab-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  /* No vertical padding: the measured client height must be exactly the space
+     available for the table header + rows. */
+  padding: 0 8px;
+  overflow: hidden;
+}
+
+/* The grid is sized so that a whole number of rows always fits, and vertical
+   navigation is done with the pagination control. antd nevertheless forces
+   `overflow-y: scroll` on the body, which draws an always-on scrollbar track
+   (and shows a stray one for its own 1px border rounding). Disable vertical
+   scrolling; horizontal scrolling is untouched. */
+.table-wrap .ant-table-body {
+  overflow-y: hidden !important;
+}
+
+/* Pagination bar, permanently docked to the bottom of the pane. It is rendered
+   unconditionally so it is always visible, whatever the table state. */
+.table-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px 12px 6px;
+  border-top: 1px solid transparent;
+}
+
+/* Fill the tab pane with the table so the pagination bar can sit at the very
+   bottom. antd 6 renamed the internals (`content-holder` -> `body-holder`, and
+   the pane itself is now `-content` instead of `-tabpane`), so both spellings
+   are listed here: a stale selector silently breaks the whole flex chain. */
+.app-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.app-tabs > .ant-tabs-nav {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.app-tabs .ant-tabs-body-holder,
+.app-tabs .ant-tabs-content-holder {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.app-tabs .ant-tabs-body,
+.app-tabs .ant-tabs-content,
+.app-tabs .ant-tabs-tabpane {
+  height: 100%;
+  min-height: 0;
+}
+
+/* Splitter panels must be allowed to shrink below their content's min-content
+   width, otherwise one long object name in the tree pushes the right-hand pane
+   out of the window. */
+.ant-splitter-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Left structure tree: long names ellipsize instead of producing a horizontal
+   scrollbar at the bottom of the pane. */
+.schema-tree {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.schema-tree .ant-tree,
+.schema-tree .ant-tree-list,
+.schema-tree .ant-tree-list-holder,
+.schema-tree .ant-tree-list-holder-inner {
+  width: 100%;
+  min-width: 0;
+}
+
+.schema-tree .ant-tree-treenode {
+  width: 100%;
+  min-width: 0;
+}
+
+.schema-tree .ant-tree-node-content-wrapper {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.schema-tree .ant-tree-title {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.tree-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.tree-node-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-node-meta {
+  flex: 0 0 auto;
+  font-size: 11px;
+}
+
+.tree-node-dim {
+  opacity: 0.45;
+}
+
+.tree-node .ant-tag {
+  flex: 0 0 auto;
+}

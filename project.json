@@ -1,0 +1,15 @@
+{
+  "name": "DBEditor",
+  "fullname": "dbeditor",
+  "icon": "build/appicon.png",
+  "docs": [
+    "README.md"
+  ],
+  "build": [
+    "wails3 build"
+  ],
+  "outputs": [
+    "bin"
+  ],
+  "release-name": "dbeditor"
+}
